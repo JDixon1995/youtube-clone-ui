@@ -5,6 +5,7 @@ import { darkTheme, lightTheme } from './utils/Theme'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import Navbar from './components/Navbar'
 import Menu from './components/Menu'
+import Home from './pages/Home'
 
 const Container = styled.div`
   display: flex;
@@ -32,7 +33,7 @@ const [ darkMode, setDarkMode ] = useState(true)
           <Wrapper>
             <Routes>
               <Route path="/">
-                <Route index element={'/'} />
+                <Route index element={<Home />} />
                   <Route path="signin" element={'/'} />
                   <Route path="video">
                   <Route path=":id" element={'/'} />
