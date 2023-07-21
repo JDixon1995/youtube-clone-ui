@@ -26,7 +26,7 @@ const [ darkMode, setDarkMode ] = useState(true)
   <ThemeProvider theme={ darkMode ? darkTheme : lightTheme }>
   <BrowserRouter>
     <Container>
-      <Menu />
+      <Menu darkMode={darkMode} setDarkMode={setDarkMode} />
       <Main>
         <Navbar />
           <Wrapper>
