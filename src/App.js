@@ -6,6 +6,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import Navbar from './components/Navbar'
 import Menu from './components/Menu'
 import Home from './pages/Home'
+import Video from './pages/Video'
 
 const Container = styled.div`
   display: flex;
@@ -36,7 +37,7 @@ const [ darkMode, setDarkMode ] = useState(true)
                 <Route index element={<Home />} />
                   <Route path="signin" element={'/'} />
                   <Route path="video">
-                  <Route path=":id" element={'/'} />
+                  <Route path=":id" element={<Video />} />
                   </Route>
                 </Route>
               </Routes>
