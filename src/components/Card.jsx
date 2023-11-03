@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import axios from "axios";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { format } from 'timeago.js' 
@@ -53,21 +54,33 @@ const Info = styled.div`
 `;
 
 const Card = ({ type, video }) => {
+
+  const [ channel, setChannel ] = useState({})
+
+  useEffect(() => {
+    const fetchChannel = async () => {
+      const res = await axios.get(`users/find/${video.userId}`)
+      setChannel(res.data)
+    }
+
+    
+  }, [video.userId])
+
   return (
-    <Link to="/video/test" style={{ textDecoration: "none" }}>
+    <Link to={`video/${video._id}`} style={{ textDecoration: "none" }}>
       <Container type={type}>
         <Image
           type={type}
-          src="https://i9.ytimg.com/vi_webp/k3Vfj-e1Ma4/mqdefault.webp?v=6277c159&sqp=CIjm8JUG&rs=AOn4CLDeKmf_vlMC1q9RBEZu-XQApzm6sA"
+          src={video.imgUrl}
         />
         <Details type={type}>
           <ChannelImage
             type={type}
-            src="https://yt3.ggpht.com/yti/APfAmoE-Q0ZLJ4vk3vqmV4Kwp0sbrjxLyB8Q4ZgNsiRH=s88-c-k-c0x00ffffff-no-rj-mo"
+            src={channel.img}
           />
           <Texts>
             <Title>{video.title}</Title>
-            <ChannelName>Lama Dev</ChannelName>
+            <ChannelName>{channel.name}</ChannelName>
             <Info>{video.views} views • {format(video.createdAt)}</Info>
           </Texts>
         </Details>
