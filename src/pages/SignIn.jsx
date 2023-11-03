@@ -1,4 +1,6 @@
-import React from 'react'
+import React, { useState } from 'react'
+import axios from 'axios'
+import { useNavigate } from 'react-router-dom'
 import styled from 'styled-components'
 
 const Container = styled.div`
@@ -64,18 +66,53 @@ const Link = styled.span`
 `;
 
 const SignIn = () => {
+
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const navigate = useNavigate()
+
+  const handleLogin = async (e) => {
+    e.preventDefault();
+
+    try {
+      const res = await axios.post('/auth/signin', { name, password })
+      console.log(res.data)
+      navigate('/')
+    } catch (err) {
+      console.log(err)
+    }
+  }
+
   return (
     <Container>
         <Wrapper>
             <Title>Sign In</Title>
                 <SubTitle>to continue using YTube</SubTitle>
-                <Input placeholder="username" />
-                <Input type="password" placeholder="password" />
-                <Button>Sign In</Button>
+                <Input 
+                placeholder="username"
+                onChange={(e) => setName(e.target.value)}
+                />
+                <Input 
+                type="password" 
+                placeholder="password"
+                onChange={(e) => setPassword(e.target.value)}
+                />
+                <Button onClick={(e) => handleLogin(e)}>Sign In</Button>
             <Title>or</Title>
-                <Input placeholder="username" />
-                <Input placeholder="email" />
-                <Input type="password" placeholder="password" />
+                <Input 
+                placeholder="username"
+                onChange={(e) => setName(e.target.value)}
+                />
+                <Input 
+                placeholder="email"
+                onChange={(e) => setEmail(e.target.value)}
+                />
+                <Input 
+                type="password" 
+                placeholder="password"
+                onChange={(e) => setPassword(e.target.value)}
+                />
                 <Button>Sign Up</Button>
         </Wrapper>
         <More>
